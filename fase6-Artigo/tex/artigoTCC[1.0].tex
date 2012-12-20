@@ -1,0 +1,513 @@
+\documentclass [english,brazil,twocolumn,final] {svjour3}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{graphicx}
+\usepackage{amsmath} 
+\usepackage[unicode=true]
+ {hyperref}
+ \hyphenation{coe-ren-te}
+\begin{document}
+
+\title{Aplicação online  de redes neurais artificiais na previsão de mercado para ações em bolsa de valores}
+\titlerunning{Aplicação online de redes neurais artificiais na previsão de mercado para ações em bolsa de valores}
+\authorrunning{JOÃO, R. S.  \and ARTERO, A. O.}
+\author{Rafael Stoffalette João  \email{rafaelcompp@gmail.com}
+        \and \\ Almir Olivette Artero  \email{almir@fct.unesp.br}  }
+\institute{UNESP
+\at Universidade Estadual Paulista Julho de Mesquita Filho, \\
+Faculdade de Ciência e Tecnologia, Presidente Prudente - SP,\\
+Rua Roberto Simonsen, 305,
+19060-900,\\
+Telefone: (18) 3229-5388,
+Fax: (18) 3221-4391}
+        \date{\today}
+        
+\maketitle
+
+
+
+\begin{abstract}
+\par O propósito deste estudo foi inicialmente aplicar conceitos de inteligência artificial baseando-se no funcionamento de uma rede neural artificial com múltiplos neurônios em sua camada oculta, realimentada e treinada por um algoritmo Backpropagation, no mercado de ativos da bolsa de valores e assim, considerando um bom conjunto de dados histórico referentes a cotações passadas, prever qual será a próxima cotação para a ação analisada.
+Várias alterações da configurações da estrutura da rede neural foram feitas e analisadas com a finalidade de classificar qual é a melhor estrutura de rede neural para o problema proposto.
+O treinamento da rede foi feito utilizando dados reais históricos obtidos a partir de bases de dados da Internet para que a rede aprenda utilizando valores que contribuam para seu bom resultado.
+\par Define-se então, como uma ferramenta que visa auxiliar novos e já atuantes investidores a ter mais segurança em suas escolhas para que dessa forma façam atuações confiantes no sistema levando em consideração toda a trajetória que a ação já teve em suas cotações. Consequentemente, tomar decisões e efetuar manobras no âmbito de obter melhores resultados minimizando os riscos e maximizando os lucros.
+
+\end{abstract}
+\keywords{bolsa de valores \and ações \and inteligência  artificial \and rede neural \and predição \and aprendizagem de máquina.}
+
+\section{Introdução}
+\par O mercado de ativos da bolsa de valores atrai uma grande parcela da sociedade, que vê essa alternativa como uma forma de investir seu capital e gerar lucros sem ter a necessidade de se dedicar integralmente ao acompanhamento e estudo da área. Muitos já são investidores, outros têm vontade de investir, mas tem medo de executar manobras arriscadas e, consequentemente, perder dinheiro por não conhecerem o ambiente em que estão analisando. A tecnologia, por sua vez, tem o poder de interferir diretamente nas mais diversas áreas e, em grande parte dos casos, atuar de forma positiva e segura, como é o caso da aplicação de técnicas de Inteligência Artificial no mercado de valores da bolsa. Existe uma quantidade considerável de estudos realizados na área e que demonstram uma evolução gradativa e segura na predição de cotações dos ativos.
+\par A falta de confiança em uma atitude tomada por uma máquina é um fator quase que desconsiderado em tempos atuais, pois a cada dia, o avanço da tecnologia permite que algoritmos bem elaborados e programas desenvolvidos reforçam que a evolução depende, quase que diretamente desse avanço e de técnicas computacionais.
+\par Este artigo tem por finalidade apresentar uma aplicação  que interprete informações coletadas de fontes econômicas da Internet, trate e utilize-as de forma a alimentar uma rede neural artificial (RNA) implementada seguindo teorias de inteligência artificial e que assim, a treine usando um algoritmo Backpropagation e capacite-a para exibir resultados satisfatórios no âmbito de prever a oscilação existente no mercado de valores das ações listadas em uma bolsa de valores.
+\par Naturalmente, espera-se que o sistema se comporte da forma mais próxima a realidade e mantenha constante seu resultado para a mesma entrada independente da quantidade de vezes que a predição for executada, dessa forma pode ser provado que a rede se comporta bem independente de quais foram os valores atribuídos aos pesos associados às entradas da rede neural.
+\par A estruturação do artigo segue uma linha de esclarecimento de conceitos e teorias que são de essencial conhecimento para o entendimento e análise do objetivo, sendo assim a seção primeira deste descreve a problemática do assunto, a justificativa da necessidade do estudo para essa área e a motivação que leva ao estudo, bem como uma breve introdução a conceitos voltados ao mercado de valores.
+Já na seção subsequente é abordado todo o tema básico sobre uma bolsa de valores e seu funcionamento englobando termos técnicos e descrições mais detalhadas de eventos que ocorrem para que a bolsa opere normalmente durante um dia de atividade.
+ Ainda na mesma seção, o artigo apresenta seu foco principal de estudo, as ações que a bolsa de valores negocia, seus conceitos, tipos, como identificá-las em uma fonte de informação e como são feitas suas negociações pelos investidores que se utilizam dos serviços de uma corretora de valores.
+\par Uma explicação mais aprofundada é apresentada na seção seguinte do artigo, definindo alguns conceitos fundamentais sobre inteligência artificial para o entendimento das técnicas e conceitos utilizados no decorrer do estudo. Mais precisamente, o artigo foca nas redes neurais artificiais, seu funcionamento, sua finalidade e como é feito seu treinamento para que possa exibir resultados satisfatórios para o estudo. Também há nesta seção uma definição sobre redes e algoritmos de predição que poderão colaborar muito no desenvolvimento do sistema proposto pelo estudo.
+\par Prosseguindo, o artigo expõe estudos passados que focaram no mesmo, ou semelhante, tema deste estudo e seus resultados obtidos. Muitos estudos já foram feitos nesta área, alguns com resultados positivos, porem poucos apresentaram taxas de erro consideráveis e assim será possível analisar melhor e escolher qual linha de raciocínio seguir. Consequentemente, assim pode-se confrontar resultados obtidos com os esperados pelo sistema proposto.
+\par O artigo ainda apresenta as considerações finais do estudo com informações referentes ao que se espera que o sistema retorne. Sabe-se que é uma tarefa difícil prever a movimentação das ações no mercado de valores e que qualquer fator externo pode ser influenciador direto sobre o valor da ação, portanto são abordadas nesta seção as possibilidades e as restrições que são encontradas no desenvolvimento do sistema.
+\par Por fim, o artigo apresenta todas as tentativas utilizadas, resultados obtidos, considerações e fontes de informações que foram consultadas para sua criação, incluindo livros, artigos, estudos realizados anteriormente que abordam temas semelhantes e sites da Internet que abordam tanto conceitos de mercado de ações na bolsa de valores quanto técnicas que serão utilizadas na implementação do sistema proposto pelo estudo.
+
+\subsection{Motivação}
+\par É recorrente que discussões sobre investimentos e formas de ganhar dinheiro remetam a possibilidade de bons resultados em investimentos no mercado de ações da bolsa de valores devido ao crescimento adquirido desse setor no mercado financeiro com o avanço da globalização. Tão quanto é normal o desconhecimento detalhado pelas pessoas sobre o assunto e possibilidades de atuações. 
+Atualmente o mercado de ações é utilizado como uma fonte de financiamento para as empresa e também um meio importante de aquisição financeira para pessoas comuns.
+Também conhecido é que, esse ramo de atividades não é tão estável e torna investidores, potencialmente inclusive, receosos e cautelosos. Instabilidade essa que não é possível de ser estimada ou padronizada devido a fatores políticos, econômicos, entre outros, também conhecidos como agentes externos globais, que influenciam direta e indiretamente valores de ações das empresas que compõem o mercado da bolsa de valores.\par Outro fator importante a se ressaltar é a dificuldade existente que acionistas amadores encontram para controlar suas ações e, ao mesmo tempo, pesquisar sobre novas e possíveis boas escolhas, tanto pela quantidade de informações que uma pessoa deve processar, quanto pela escolha certa de fontes que tragam informações úteis e reais para análise.
+\par Atualmente a base mais sólida para aquisição de informações que ajudem escolhas e passos no mercado de valores é a estatística, ela apresenta dados reais e comportamentos que as ações, empresas e investidores tiveram em situações passadas distintas, porém mostra dados passados e que possivelmente não ocorrerão mais. Fica assim responsável por uma boa parcela das tomadas de decisões dos acionistas as informações sobre o mundo e uma estimativa pessoal, também conhecida como $feeling$.
+Hoje existem técnicas e conceito que podem ampliar os conhecimentos sobre o mercado de ações e a bolsa de valores, bem como sua utilização e possibilidades de jogadas. A Internet, por exemplo, é um ambiente totalmente propício ao crescimento e popularização do setor, assim como a inteligência artificial, que tem como objetivo tornar uma máquina capaz de reagir como se fosse consciente em suas tomadas de decisões. 
+\par As redes neurais artificiais são algumas das técnicas mais difundidas e utilizadas da inteligência artificial, com elas pode ser possível auxiliar um usuário, com o mínimo de conhecimento necessário sobre o tema do estudo e ambiente de Internet, a fazer boas escolhas em tomadas de decisões e até mesmo entender melhor como funciona o mercado e como ele é sensível a fatores externos que, apesar de não ser tão claro, influenciam diretamente em seus investimentos.
+\par Falar sobre bolsa de valores tornou-se um interesse global, que envolve desde investidores em busca de lucros até companhias que almejam conquistar novos acionistas e também manter os já existentes, a fim de se valorizar e arrecadar investimentos para a evolução da empresa. Analisando essa popularização e aumento do interesse pelo tema, é possível ver a necessidade de se desenvolver um sistema que possa chegar o mais próximo possível de uma previsão bem formulada, assim como um ser humano executaria e obter um resultado positivo.
+\par Desde o início do projeto foi enfatizado a possibilidade sobre os riscos de não se obter o resultado esperado, esse que é possível de ocorrer tanto por uma escolha derivada de um pensamento humano quanto por certa influência de ferramentas como a proposta pelo estudo. Portanto, reafirma-se que a ferramenta a ser desenvolvida é uma colaboradora na tomada de decisões, não devendo ser a única fonte de informações.
+ De acordo com ARMANO, MARCHESI e  MURRU \cite{1}, o preço de uma ação reflete diretamente em qualquer tempo, às informações que os investidores possuem. Ou seja, assim que uma informação nova é processada o preço da ação é alterado.
+\par A área de investimentos e finanças é uma das principais áreas de aplicação das redes neurais artificiais, por se tratar de um ramo em que decisões tomadas baseando-se em fontes de informações com um alto grau de variação e imprecisão~\cite{2}. As Redes Neurais Artificiais (RNAs), se destacam pela sua capacidade de aprendizado de padrões, ainda que mesmo modelos estatísticos prevejam tendências do mercado financeiro, as redes neurais artificiais são mais apropriadas para lidar com oscilações recorrentes.
+
+\section{A Bolsa de Valores}
+\par Uma bolsa de valores é um ambiente, ou por alguns especialistas definida, uma instituição administrativa de negócios onde títulos emitidos por empresas são manipulados. As companhias que são listadas, assim chamadas as empresas que tem suas ações negociadas na bolsa, podem ser de capital público, privado ou misto, esse último quando mesclam entre seus ativos investimentos governamentais e investimentos privados, porém coincidem que ambas tem seus capitais comercializados de forma eletrônica.
+No Brasil, atualmente as bolsas são organizadas sob a forma de sociedade por ações (S/A), reguladas e fiscalizadas pela Comissão de Valores Mobiliários (CVM).
+\par A bolsa de valores tem como principal foco proporcionar, de forma transparente e líquida, um ambiente para que os ativos de empresas possam ser comercializados. Somente por meio de corretoras é que investidores podem ter acesso aos sistemas de negociação e efetuarem transações de compra e venda das ações.
+Para que suas ações possam ser negociadas na bolsa, uma companhia deve ser aberta, isto é, o público em geral é quem detém suas ações e não uma parcela restrita de acionistas. E ainda, seguir instruções da CVM, além de cumprir uma série de normas e regras definidas pela própria bolsa para que suas ações possam ter validade e serem comercializadas.
+\par Na página na Internet do Portal do Investidor~\cite{3}, é possível encontrar pesquisas que demonstram que o mercado de capitais é mais eficiente em países que possuem bolsas de valores bem estruturadas.
+Ao contrário do que se imagina, esse mercado não proporciona benefícios apenas aos investidores ativos da bolsa de valores e a empresa diretamente, ele também atua indiretamente na melhoria de qualidade de vida de todos os cidadãos. Dos benefícios proporcionados, destacam-se os seguintes~\cite{29}:
+
+\begin{itemize}
+\item As companhias encontram nas bolsas de valores um ambiente propício para levantar capital através da compra e venda de suas ações e assim, podem expandir suas atividades, qualidade de produtos, melhorar o poder aquisitivo da população gerando mais empregos;
+\item Quando uma pessoa decide entrar no mercado de ações de companhias, inconscientemente ela coopera para uma realocação racional de recursos, isto é, ao investir em um segmento a empresa beneficiada pode expandir, movimentando tanto o seu negócio quanto outros ramos de atividades. Esta atividade gera novos beneficiários de vários setores da economia, resultando num crescimento cooperativo e rápido;
+\item O fluxo de capitais estimula o crescimento das companhias devido ao crédito investido nas empresas, geram novos empregos diretos e indiretos;
+\item Consequentemente associada à demanda cada vez maior de acionistas de uma companhia, o governo impõe regras mais rígidas à bolsa de valores e isto impulsiona as empresas a evoluir. É comum dizer que companhias abertas são mais bem administradas que as fechadas (companhias detentoras de ações que não são negociadas, ou que pertencem a familiares ou a um grupo restrito de investidores);
+\item Por ser uma companhia de capital aberto, qualquer pessoa que queira participar do mercado de valores tem essa possibilidade e os investimentos em ações não requerem uma quantia expressiva de seus investidores. Um pequeno investidor pode adquirir uma pequena quantidade de ações e assim como todos os demais investidores, fazer parte dos rendimentos associados;
+\item A bolsa de valores torna-se um termômetro da economia, as ações das companhias listadas por ela oscilam diretamente influenciadas pelos fatores ocorridos no mundo e forças do mercado. Qualquer informação propagada pode mover os valores de ações das bolsas. Assim, analisar os índices de ações torna-se um bom fator indicativo de tendências da economia;
+\item Os governos podem usar a bolsas de valores para emprestar dinheiro para a iniciativa privada a fim de financiar projetos para camadas sociais mais inferiores. Geralmente, esses tipos de projetos necessitam de um grande volume de recursos que as empresas não teriam condições de levantar sozinhas. Os governos, para levantarem recursos, emitem títulos públicos que podem ser negociados nas bolsas de valores. O levantamento de recursos privados, por meio da emissão de títulos, elimina a necessidade, pelo menos a curto prazo, dos governos sobretaxarem seus cidadãos.
+\end{itemize}
+
+\subsection{Funcionamento da Bolsa de Valores}
+\par O funcionamento da bolsa de valores é simples de se entender e baseia-se nas atividades descritas no trecho a seguir:
+Quando uma empresa encontra-se necessitada de capital para investir em prol de crescimento próprio e os juros que os bancos estabelecem para empréstimos não são tão agradáveis, ela pode optar por lançar uma parcela do seu bem em forma de ações ao público, isto é, abrir seu capital para que investidores possam deter parte dele e que em troca disso forneçam dinheiro para seus investimentos.
+Ao abrir o capital, são feitas várias análises e cálculos para que se possa estabelecer um valor comercial justo e correto para cada ação e também qual a quantidade de ações que a companhia pode oferecer no mercado. Esse é o chamado mercado primário, no qual corretoras e bancos permitem que seus clientes comprem estas ações.
+Pagos os devidos impostos, o montante arrecadado com a venda das ações é de uso exclusivo da empresa e como forma de retribuição à isenção de impostos, 25~\% do lucro líquido obtido pela empresa deve ser dividido a seus acionistas detentores de suas ações.
+\par Saindo do mercado primário os detentores das ações podem querer vende-las após um determinado tempo que as detém, nesse momento começa a atuação da bolsa de valores. A iniciativa atrai novos investidores que, utilizando-se de uma corretora de valores credenciada à companhia, injetam seu dinheiro comprando ações, quanto mais interessados em comprar uma ação, mas ela tende a se valorizar e se destacar entre os acionistas. Esse interesse é mais especulativo do que real, ou seja, baseia-se na esperança de que a ação irá se valorizar e assim, revendê-la por um preço maior.
+O inverso também é verdadeiro, nos casos em que muitos querem se desfazer das ações e ninguém as quer comprar, a tendência é que os detentores das ações diminuam o preço delas para atrair compradores e assim, consequentemente, as ações desvalorizam. A oscilação da bolsa pode ser definida basicamente como a flutuação natural da compra e venda de ações.
+
+\subsection{Ações e Valor de Mercado}
+\par Ações são títulos de renda variável emitidas por sociedades anônimas e representam a menor fração em que se divide o capital de uma empresa. Assim define-se uma empresa como uma sociedade por ações, aberta ou fechada. Um detentor de ações de uma empresa é um co-proprietário da sociedade anônima a qual é associado, portanto tem o direito de gozar de parte dos resultados obtidos pela companhia correspondente a seu investimento.
+\par Ações podem ser de dois tipos, ordinárias ou preferenciais. As primeiras permitem que seus detentores tenham direito ao voto nas assembleias gerais de acionistas, votos de deliberação referente à administração da empresa, balanço e futuros investimentos. As ações ordinárias, visualmente, são distinguidas por apresentarem o sufixo "ON" \ em seu nome. Já as ações preferenciais não permitem que seus detentores votem, mas atribuem o direito a seus detentores de receber dividendos com prioridade sobre os detentores de ações ordinárias e também de receber o capital investido em caso de liquidação da companhia. Ações preferenciais possuem um sufixo "PN"\  que as distinguem também.
+Além dos sufixos descritos nessa mesma sessão, uma ação é reconhecida por apresentar um código da empresa que representa seguido do código que descreve o tipo de ação. Por exemplo, EMBRATEL PN pode ser representada pelo código EBTP4, onde o dígito 4 define seu tipo, Preferencial (PN), assim como o dígito 3 define as ações Ordinárias (ON).
+Ações PN são ainda, subdivididas por classes que hierarquicamente define a ordem de pagamento de dividendos e reembolso. PNA, PNB e PNC são respectivamente, representadas pelos inteiros 5, 6 e 7.
+\par A popularidade de uma ação no mercado é baseada em sua qualidade de negócio, isto é, a facilidade que o detentor tem de converter suas ações em moeda real. Esta definição é conhecida no mercado de valores pelo termo "liquidez de uma ação". Ações de alta liquidez são referentes a grandes empresas com alta reputação e prestígio, também conhecidas como "blue chips". Estas ações são conhecidas pela sua estabilidade de valor e valorização a longo prazo garantida, consequentemente são as que detém o maior valor de mercado.
+Em sequência, existem as ações de segunda linha, caracterizadas pela sua sensibilidade ao mercado, sua queda sempre precede à queda das blue chips assim como, consequentemente, sua valorização somente ocorre após a valorização das blue chips.
+Por fim, existem as ações de terceira linha. Estas possuem liquidez consideravelmente baixa e são caracterizadas por serem de empresas pequenas e com baixa reputação, o que não indica que são de menor qualidade.
+\par O valor das ações é definido pela sua cotação, alvo de extrema importância para este estudo. As cotações podem ser de abertura, a primeira cotação do dia, mínima, quando atinge o menor valor durante toda atividade do dia, máxima que, inversamente proporcional à mínima, define a menor cotação do dia. Também é utilizada a cotação média que faz uma média de todas as cotações que a ação possuiu no dia e por fim a cotação de fechamento, que representa o ultimo valor que a ação atingiu durante o dia de atividade.
+\par Fazendo relação com o mundo real as ações podem ser convertidas em valor de moeda do país, a essa definição atribui-se o termo índice, que além de representar a conversão para moeda real, também serve para medir a variação das ações da bolsa e abstrai uma visão geral sobre o mercado de valores para os acionistas. No Brasil, o principal índice de ações é o iBovespa que acompanha a evolução das cotações das ações é um forte indicador de desempenho do mercado de ações em geral, porém existem vários outros índices que não são tão utilizados quanto este. Por exemplo, podem-se citar índices como IBRX, IBRX-50, IVBX-2, IGC, dentre outros vários.
+\par O índice Bovespa é o valor atual, em moeda corrente de ações constituída em \date{02/01/1968}, a partir de uma aplicação hipotética. Supõe-se não ter sido efetuado nenhum investimento adicional desde então, considerando-se somente os ajustes efetuados em decorrência da distribuição de proventos pelas empresas emissoras (tais como inversão de dividendos recebidos e do valor apurado com a venda dos direitos de subscrição e manutenção em carteira das ações recebidas de bonificação). Dessa forma, o índice reflete não apenas as variações dos preços das ações, mas também o impacto da distribuição de proventos.
+\par Como já citado anteriormente, uma pessoa só pode se tornar um acionista se utilizar de intermediários financeiros, mais conhecidos como corretoras de ações. Estas empresas são portadoras de uma gama considerável de informações sobre as empresas listadas pela bolsa de valores e o mercado. Informações que são de fácil acesso a todos, inclusive pela Internet hoje é possível que qualquer pessoa se informe e negocie ações com outros investidores sem ter que enfrentar problemas como linhas de telefone ocupadas, tempo de espera dos correios ou transtorno de locomoção física. O "home broker", sistema digital que assemelha a uma rede social é a forma mais fácil de um investidor negociar suas ações, através dele o acionista pode enviar ordens de compra e venda pelo site da corretora a qual é cadastrada. Outra forma de negociação é o pregão online no próprio site da Bovespa, onde são exibidos os valores das ações negociadas em tempo real.
+\par A negociação de ações pela Internet é a maior responsável pelo fim, em 2005, do pregão viva voz, Figura~\ref{fig:pregao},  onde representantes das corretoras associadas à Bovespa negociavam em voz alta suas ações em um espaço reservado a essa atividade e que demonstra uma total confusão a quem não é profundo entendedor do mercado.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8.4cm]{img/bolsa.png}
+\caption{Pregão viva voz da bolsa de valores~\cite{3}.}
+\label{fig:pregao}
+\end{figure}
+
+\par Encontrar um padrão na oscilação das ações é uma tarefa dfícil, já que o mercado de valores é muito sensível a diversos aspectos, assim alguns investidores seguem fontes de informações das mais variadas bases. Na própria terminologia do mercado de ações há dois tipos de análises que cooperam muito na formação de opinião para aquisição de novas ações pelos investidores, são as análises fundamentalistas e análises técnicas.
+\par Na análise fundamentalista o foco do estudo é a causa do movimento nos preços das ações, já na análise técnica os investidores focam no efeito que é causado quando há qualquer tipo de movimento sobre os valores das ações do mercado.
+Já a análise técnica segue a teoria descrita por Chales H. Dow, conhecido por ser o fundador da escola técnica. Sua teoria, conhecida como "Teoria Dow"~\cite{4}, afirma que o que aconteceu ontem pode determinar o que acontecerá hoje e a configuração gráfica dos preços tende a se relacionar com a direção que eles tomarão no futuro, ou seja, antes de qualquer oscilação que ocorre no mercado de ações, positiva ou negativa, houve algum acontecimento que sinalizou que algo ocorreria.
+\par Ainda seguindo a teoria de Dow, o mercado pode ser dividido em três tendências, primária que possui retornos a longo prazo, secundária que apresentam resultados em reversão à tendência primária e terciária, que apresenta tendências de curto prazo.
+Por outro lado a análise fundamentalista, mais utilizada pelos analistas para acompanhar as oscilações do mercado e prever tendências, afirma que a melhor forma de se calcular o valor justo para uma empresa e suas ações está diretamente relacionada a sua capacidade de gerar lucros no futuro. O objetivo fundamental da análise fundamentalista é avaliar as alternativas de investimento a partir do processamento das informações obtidas diretamente das empresas, ou seja, analisar dados atuais sobre a empresa e sobre o ramo de atuação que ela opera.
+\par Dessa forma o sistema proposto se comporta analisando movimentações passadas de uma ação e assim identifica um padrão que possa ser aplicado no próximo período da cotação e que chegue o mais próximo possível do real caminho seguido por esta oscilação.
+
+\section{Inteligência Artificial e Redes Neurais Artificiais - RNA}
+\par Segundo DANDOLINI~\cite{5}, "A Inteligência Artificial é um termo que abrange muitas definições". Mas basicamente podemos considerá-la como uma área da ciência da computação que é voltada na busca de métodos que façam uma máquina reagir a situações como se fosse um ser humano nas mais diversas situações, representar seu pensamento com criatividade, agilidade e essencialmente, basear seus resultados apresentados na aprendizagem que obteve antes de ser testada. 
+\par São duas linhas de pensamento distintas que definem a área, a inteligência artificial forte e a  inteligência artificial fraca. Na teoria da inteligência artificial forte, se admite que a máquina possa raciocinar e resolver problemas de forma consciente como um ser humano. Já na inteligência artificial fraca, admite- se que o computador não é capaz de pensar efetivamente e sim, agir como se fosse inteligente, mas não tem consciência, apenas simula, baseia-se na máquina de Turing.
+\par Redes neurais artificiais são sistemas, também definidos como técnicas, computacionais estruturados numa aproximação à computação baseada a ligações que simulam o funcionamento de um neurônio biológico e são capazes de prever sistemas não lineares, o que torna a sua aplicação no mercado financeiro bastante eficiente. Apresentam um modelo matemático inspirado na estrutura neural de organismos inteligentes e que adquirem conhecimento através da experiência, esse modelo é conhecido como neurônio artificial, Figura~\ref{fig:neuart}, que nos faz analogia a neurônios do cérebro e são interligados para formar uma rede de nós, daí o termo rede neurais.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8.4cm]{img/neuronio_artificial.png}
+\caption{Representação de um neurônio artificial~\cite{27}}
+\label{fig:neuart}
+\end{figure}
+\par Uma rede neural, segundo HAYKIN~\cite{6}, pode ser definida como "um processador maciçamente paralelamente distribuído, constituído de unidades de processamento simples, que têm a propensão natural para armazenar conhecimento experimental e torná-lo disponível para uso. Ela assemelha-se ao cérebro em dois aspectos: 
+\begin{itemize}
+\item $(1)$ o conhecimento é adquirido pela rede a partir de seu ambiente através de um processo de aprendizagem; 
+\item $(2)$ forças de conexão entre neurônios, os pesos sinápticos, são utilizadas para armazenar o conhecimento adquirido.
+\end{itemize}
+\par Uma rede neural artificial é composta por um conjunto de unidades de processamento de funcionamento simples, os neurônios, que são conectadas por canais de comunicação com um determinado peso associado. O aprendizado em RNAs é feito de forma interativa e evolutiva, está normalmente associado à capacidade das mesmas adaptarem seus parâmetros como consequência da sua interação com o meio externo.
+\par No esquema do neurônio artificial, Figura~\ref{fig:neuart}, as entradas correspondem ao vetor $x$ com dimensão $m$ e para cada uma das entradas há um peso associado $w$. A soma das entradas associadas a seus pesos é que caracteriza a saída linear $u$ do neurônio que, aplicada a uma função de ativação, ou limiar, $f(u)$ obtém-se a saída do neurônio, também chamada de saída de ativação, $y$. 
+\par Um neurônio artificial apresenta três elementos básicos, peso sináptico, função soma e função de transferência. Os pesos sinápticos são responsáveis por armazenar as informações e também implicam no efeito que a saída de um neurônio causará na entrada do próximo neurônio.
+A função de soma tem como característica processar os estímulos implicados pelos pesos associados as suas respectivas entradas. 
+\begin{equation}net_j = \sum_{j=1}^{N}{w_{ij}*x_i},\end{equation} onde $net_j$ assume o valor  das entradas $x_i$ associado aos seus respectivos pesos $w_{ij}$.
+\par Posteriormente à somatória, a função de transferência, ou também conhecida como função de ativação, limita o alcance, ou amplitude da curva, do valor de saída. A partir do primeiro modelo de rede neural, proposto por MCCULOCH e PITTS~\cite{27} foram derivados outros que possibilitam obter uma saída não limitada a apenas zero ou um. Comumente são utilizadas as funções sigmoide (1) e tangente hiperbólica (2)  como funções de ativação para redes neurais, porem algumas outras como degrau (3), degrau unitário (4), linear (5), semi-linear (6), dentre outras~\cite{18,24}, representadas graficamente pela Figura~\ref{fig:funcoes} também podem ser utilizadas dependendo do contexto em que deseja-se aplicar a rede.  Observa-se que normalmente os limites gerados pelas funções ficam entre o intervalo  $[-1,1]$, exceto para as funções sigmoide e degrau que tem suas saídas limitadas no intervalo $[0,1]$.
+
+\begin{equation}
+sig(net) = \frac{1}{1 + e^{-net}} 
+\end{equation}
+%Função Sigmoide
+
+\begin{equation}
+tanh(net) = \frac{1 - e^{-2net}}{1 + e^{-2net}}
+\end{equation}
+%Função Tangente Hiperbólica
+
+\begin{equation}
+ f(net) = \begin{cases}
+1 & \text{ se } net > 0 \\ 
+ 0 & \text{ se } net\leq 0 
+\end{cases}
+\end{equation}
+%Função Degrau Unitário
+
+\begin{equation}
+f(net) = \begin{cases}
+1 & \text{ se } net > 0 \\ 
+ -1 & \text{ se } net\leq 0 
+\end{cases}
+\end{equation}
+%Função Degrau
+
+\begin{equation}
+f(net) =\alpha* net \; ,\alpha =cte
+\end{equation}
+%Função Linear
+
+ \begin{equation}
+ f(net) = \begin{cases}
+-1 & \text{ se } net\leq -1 \\ 
+ net & \text{ se } -1<net\leq 1 \\
+ 1 &\text{ se }  net > 1
+\end{cases}
+\end{equation}
+%Função Semi-linear
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8.4cm]{img/functions.png}
+\caption{Esquema gráfico das funções de ativação  sigmoide (a), tangente hiperbólica (b), degrau unitário (c), degrau  (d) linear (e) e semi linear (f).}
+\label{fig:funcoes}
+\end{figure}
+\clearpage
+\par A estrutura de uma RNA, Figura~\ref{fig:redeneural}, geralmente apresenta três níveis de processamentos. Uma camada de entrada, que simplesmente apresenta os valores de entrada à rede neural, uma parte oculta que é responsável pela maior parte do processamento da rede e a camada de saída. Na fase intermediária do processamento, ou também conhecida como oculta, encontram-se os neurônios que podem estar em vários níveis denominadas "camadas ocultas múltiplas"\ e que sintetizam os valores de entrada com seus respectivos pesos e processam esses valores a fim de apresentar bons resultados à saída que tem por finalidade basicamente somar os valores obtidos no processamento da oculta.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=8.4cm]{img/rede_neural.png}
+\caption{Estrutura da rede neural artificial com realimentação.}
+\label{fig:redeneural}
+\end{figure}
+\par Já no esquema de um neurônio biológico, Figura~\ref{fig:neunat}, é possível ver a analogia existente a um neurônio biológico, onde os dendritos são representados pelas entradas do neurônio artificial, assim como o corpo pela função limiar e seus terminais sinápticos pela saída $y$.
+\par O neurônio biológico pode ser visto como o dispositivo computacional elementar do sistema nervoso, composto de muitas entradas e uma saída. As entradas são formadas através das conexões sinápticas que conectam os dendritos aos axônios de outras células nervosas. Os sinais que chegam por estes axônios são pulsos elétricos conhecidos como impulsos nervosos ou potenciais de ação e constituem a informação que o neurônio processa para produzir como saída um impulso nervoso no seu axônio~\cite{7}.
+\par Os neurônios fazem operações baseados em seus dados de entrada e suas saídas podem servir de entrada para outros neurônios. O comportamento de uma RNA vem das interações entre os neurônios de processamento da rede. 
+
+\begin{figure}[hb!]
+\centering
+\includegraphics[width=8.4cm]{img/neuronio_natural.png}
+\caption{Esquema de um neurônio biológico.~\cite{30}}
+\label{fig:neunat}
+\end{figure}
+
+
+\subsection{Treinamento das Redes Neurais Artificiais}
+\par Sem dúvida a principal característica de uma rede neural é sua habilidade e capacidade de aprender e melhorar seus resultados. Seu treinamento é um processo que ocorre de forma iterativa e gradativa, isto é, a cada saída da rede o seu erro  é corrigido e então é utilizado nos reajustes de pesos para uma nova iteração do treinamento, tornando assim a rede mais próxima de um resultado esperado. O aprendizado de uma rede neural artificial ocorre toda vez que a rede consegue atingir uma solução generalizada para uma determinada classe de problemas propostos. Basicamente podemos incitar que, a rede neural é capaz de modificar-se em função da necessidade de aprender a classe de dados de informação que lhe foi apresentada como entrada~\cite{10}.
+\par É importante que nessa fase se tenha uma atenção redobrada com utilização de dados reais e em grande quantidade, pois assim, a rede não memoriza o que foi utilizado para seu treinamento e sim aprende e aplica o conhecimento adquirido em dados futuros. Recomenda-se então que, como forma de evitar a memorização de valores por uma rede neural artificial, possua um conjunto de entradas de teste distintos do conjunto de treinamento para que assim, se a rede conseguir classificá-los ela então estará provando sua capacidade de generalização.
+\par O treinamento de uma rede neural artificial pode ser feito de várias formas, porém definem-se dois tipos de treinamentos mais utilizados que ajudam a escolher a melhor forma de preparar a rede para efetuar uma determinada tarefa. No treinamento supervisionado, que é aplicado na maioria das redes neurais existentes, encontram-se as redes cujo treinamento depende que haja a alimentação, inserção dos dados, de entrada e ao mesmo tempo em que informe qual saída se espera que a rede apresente. Assim o resultado obtido pela rede pode ser confrontado com o esperado e os pesos associados aos neurônios podem ser reajustados para aumentar o desempenho da rede. Assim é feito seu treinamento e aprendizado, a rede prova sua capacidade quando consegue generalizar os resultados obtidos para dados que não foram utilizados para seu treinamento. Já no treinamento não supervisionado, analogamente à supervisionada, não é apresentada à rede o que se espera de saída no treinamento. Assim, a saída é definida pela própria rede e serve como entrada para uma próxima iteração do treinamento.
+\par As redes neurais com treinamento não supervisionado são normalmente utilizadas para atividades de agrupamento, clustering, no qual uma classe é atribuída aos registros e observa-se apenas o comportamento dos seus registros, enquanto que nas redes com treinamento supervisionado apresenta-se o conjunto de dados de treinamento contendo as classes de todos seus registros. É normalmente utilizada para atividades de classificação de dados (Data Classification). Esse tipo de rede é conhecido por trabalhar suas entradas e conseguir se organizar de modo a classificá-las pressupondo algum critério de semelhança entre os valores de entrada.\par 
+Há ainda, o treinamento híbrido, que utiliza os conceitos tanto de um treinamento supervisionado quanto de um não supervisionado. Seguindo esse conceito, uma quantidade dos pesos é determinada de forma supervisionada e outra é obtida por aprendizado não supervisionado.
+\par Segundo HAYKIN~\cite{6} em ALVES\cite{8}, o algoritmo de aprendizagem é um conjunto pré- estabelecido de regras bem-definidas para resolução de um problema de aprendizagem. Sua principal função é processar entradas e encontrar pesos adequados para a rede neural artificial, a fim de que ela possa gerar saídas o mais próximo possível das desejadas. Ainda segundo HAYKIN~\cite{6}, existem cinco regras básicas de aprendizagem através das quais os pesos sinápticos de uma rede podem ser ajustados: aprendizagem por correção de erro, baseada em memória, hebbiana, competitiva e aprendizagem de Boltzmann. 
+\begin{itemize}
+\item Na aprendizagem por correção de erros, é seguido o conceito do treinamento supervisionado, ou seja, para cada entrada utilizada na rede neural é informado também uma saída desejada a fim de contrastar resultados subtraindo-se o resultado obtido do desejado e reajustar os pesos da rede;
+\item Já no aprendizado baseado em memória, todos os resultados obtidos em treinamentos realizados no passado são armazenados em uma base de dados e são utilizados como exemplos para futuras comparações. Assim quando se deseja classificar uma nova entrada, o algoritmo busca e analisa os dados armazenados para gerar uma nova saída;
+\item A aprendizagem hebbiana é produto do postulado de aprendizado de HEBB~\cite{5} que se dois neurônios em ambos os lados de uma conexão são ativados simultaneamente, então a força desta conexão é seletivamente aumentada.   Ainda segundo DANDOLINI ~\cite{5}, a grande vantagem da utilização desta regra é que a aprendizagem é feita localmente, isto é, a alteração feita nos pesos depende única e exclusivamente da ativação dos dois neurônios conectados entre si pelo peso;
+\item Outro método de aprendizagem é a "Aprendizagem de Boltzmann". Segundo MULLER~\cite{11}, a máquina de Boltzmann é uma máquina de estados, onde há a alteração ou repetição de certos eventos até um estado considerado estável. Estes eventos consistem em ponderações matemáticas que vão sendo modeladas até que se ajuste a um determinado padrão de valores. Quando a máquina estabiliza as ponderações dentro de uma margem confiável, diz-se que ela aprendeu aquele padrão;
+\item Por fim, a aprendizagem competitiva segue a linha de que os neurônios da camada de saída são configurados para reagir de forma distinta uns dos outros a mesma entrada e devem competir entre si para ser o único dos neurônios ativado na iteração que transponderá seu resultado à saída da rede. 
+\end{itemize}
+
+\subsection{O Algoritmo de Treinamento Backpropagation}
+\par Trata-se do algoritmo de treinamento mais usado em redes de múltiplas camadas e com realimentação adiante. O erro obtido na camada de saída é utilizado no reajuste dos pesos iniciais e em seguida esses pesos são retro-propagados pela rede em direção à camada de entrada~\cite{7,18,23,24}. O algoritmo exige que a função seja diferenciável em qualquer valor do domínio.
+\par O treinamento utilizando o algoritmo Backpropagation segue um padrão de passos básicos~\cite{7,18,23,24}, são eles:
+\begin{enumerate}
+\item 	Inicializam-se os pesos dos neurônios com valores aleatórios. Normalmente esses valores são restritos ao intervalo  $[-1,1]$;
+\item 	Definem-se os valores que servirão como entrada para a rede;
+\item 	Calcula-se o valor $net$ para cada neurônio $j$ da camada oculta, multiplicando-se o valor da entrada $x_i$ pelo seu peso associado $w_{j,i}$;
+\begin{equation} net_j =  \sum_{i=1}^{N}( w_{ji})(x_i)+\Theta _j \end{equation}
+\item 	É aplicada a função de transferência $f(net)$ escolhida para cada valor $net$ obtido em cada neurônio da camada oculta;
+ \begin{equation}  i_j = f_j(net_j^o) \end{equation}
+\item 	Calcula-se o valor $y$ de cada saída $k$ da rede aplicando a função de transferência à soma dos resultados do passo 4 multiplicados  pelos seus pesos associados, assim como feito no passo 3;
+\begin{equation}y_k = f_k(net_k^s) \end{equation}
+\item 	O erro $\delta$ da camada de saída é calculado subtraindo do valor desejado o valor obtido pela rede multiplicado pela derivada da função de transferência utilizada;
+\begin{equation}\delta =(d-y){f_k^s}'(net_k^s) \end{equation}
+\item 	É calculado o valor do erro para cada neurônio da camada oculta da rede;
+\begin{equation} \delta _k^o = ({f_j^o}'(net_j^o))\sum_{k=1}^{N}(\delta_k^s)(w_{kj}) \end{equation}
+\item 	Os pesos da camada de saída são reajustados pelo incremento de seu valor multiplicado pela taxa de aprendizado $n$, valor do erro na camada de saída da rede e a entrada que foi lhe apresentada;
+ \begin{equation}w_{kj}^s = w_{kj}^s+(n)(\delta_k^s)(i_j \end{equation}
+\item 	Os pesos da camada oculta são alterados incrementados pelo seu valor atual somado pela taxa de aprendizado multiplicada pelo erro obtido na camada a sua frente e pelo valor de entrada associado ao neurônio;
+\begin{equation}w_{ji}^o = w_{ji}^o+(n)(\delta_j^s)(x_i \end{equation}
+\item 	Por fim é possível efetuar o calculo do erro quadrático da rede.
+\begin{equation}\varepsilon = \frac{1}{2}\sum_{k=1}^{M}(\delta _k)^2 \end{equation}
+\end{enumerate} 
+\par A partir desses passos, a rede realiza $n$ iterações e seus pesos são alterados a cada uma dessas iterações. Dessa forma é dito que a rede aprende a intensidade das variações que a classe de valores de entrada sofre e pode assim, prever o valor futuro.
+
+\subsection{Predição Utilizando a Inteligência Artificial}
+\par Prever significa fazer uma afirmação sobre algum evento, ou algo, que irá acontecer baseado, muitas vezes, em informações passadas sobre o ambiente analisado. Assim como ocorre por várias vezes com as pessoas quando imaginam, por exemplo, quanto gastarão de energia elétrica no próximo mês.
+ Na computação há vários algoritmos que se utilizam de fatos reais ocorridos anteriormente para criar estimativas ou tentar prever um evento futuro, porém prever o futuro é uma atividade muito complexa, pois envolve dados oriundos de fatores externos e que podem mudar totalmente em um intervalo de tempo curto e assim, alterar de forma intensa os resultados esperados. Esses fatores externos não são facilmente captados, sintetizados ou previsto facilmente pelo algoritmo.
+\par No ambiente da inteligência artificial, as redes neurais podem ser utilizadas para a predição de eventos que possam ocorrer. Elas possuem a vantagem por deterem um aprendizado automático que as fazem se comportar seguindo um padrão em situações distintas. A forma como a rede faz a predição pode ser aplicada, por exemplo, no tempo. As redes neurais treinadas para previsão de séries temporais utilizam-se do fator tempo para prever a frequência de acontecimento de um determinado evento, baseando-se em dados inseridos em seu treinamento que apresentaram comportamentos distintos em períodos de acontecimento diferentes. Assim a rede pode utilizar esses dados de treinamento e generalizar-se para demais dados que não foram os utilizados em sua aprendizagem.
+\par As redes neurais para predição de estados na maioria das vezes utilizam-se da regressão não-linear, Figura~\ref{fig:nlinear}, para chegar a seus resultados. Este é um método proposto para se estimar o valor resultante de uma variável baseando-se em dados de entrada por outras variáveis. 
+Esse método  é uma forma de analisar como os dados são modelados por uma função que é aplicada em parâmetros de uma ou mais variáveis independentes. Os dados são ajustados por algum método de aproximação.
+\par Um modelo de regressão é não-linear se pelo menos um dos seus parâmetros aparecem de forma não-linear, caso contrário o modelo é caracterizado como regressão linear, Figura~\ref{fig:linear}. 
+Desta forma, a rede é treinada e seu erro corrigido a cada iteração, traçado uma linha que pode ser utilizada para a previsão do resultado da próxima iteração do treinamento.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8.4cm]{img/regressao_nlinear3.png}
+\caption{Modelagem do método de regressão não linear exponencial \cite{28}}
+\label{fig:nlinear}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8.4cm]{img/regressao_linear1.png}
+\caption{Modelagem do método de regressão linear \cite{22}}
+\label{fig:linear}
+\end{figure}
+
+\section{Estudos Relacionados}
+\par O "Estudo sobre a empregabilidade da previsão do índice Bovespa usando redes neurais artificiais" por ROQUE~\cite{9}, em 2009, apresentou um modelo baseado em redes neurais de previsão de índice da Bolsa de Valores de São Paulo, iBovespa, no período de 10 de março de 2006 a 9 de maio de 2008, porém os dados utilizados para o treinamento da rede foram do intervalo compreendido entre 11 de julho de 1997 e 9 de março de 2006. Foi utilizado um $script$ para captura de dados via Internet pelo site da Bovespa e para o treinamento também foi utilizado um $script$ em linguagem Matlab para testar várias redes e escolher a melhor entre elas. Pelos relatos do autor, nota-se que todos os objetivos propostos no início do desenvolvimento foram atendidos. O objetivo principal do estudo, que foi alcançado, era prever a direção de oscilação do índice.
+\par No artigo "Aplicação das Redes Neurais na previsão do comportamento de mercados financeiros" por BOSAIPO~\cite{12}, foi proposta a utilização de redes neurais utilizando algoritmo Backpropagation com 6 neurônios na camada intermediária para a previsão do comportamento do mercado financeiro com a finalidade de construir uma estratégia de compra e venda de ações. As redes aplicadas mostraram bons resultados, porém ao se analisar mais detalhadamente foi possível ver que, no geral, os bons resultados foram fruto do aproveitamento de fortes movimentos de alta ou baixa no mercado. A grande maioria dos movimentos de compra ou venda foi equivocada, resultando sempre em pequenos prejuízos ao investidor. Ainda no estudo, a autora atribuiu o mau resultado ao fato do pequeno intervalo de tempo utilizado (10 dias) para aquisição de dados que foram utilizados no treinamento da RNA.
+\par No estudo "Previsão do Mercado de Ações Brasileiro utilizando Redes Neurais Artificiais"~\cite{13}, foram criadas e simuladas diferentes configurações de RNAs com o objetivo de tentar prever o indicador da Bolsa de Valores de São Paulo, o IBovespa. A final do estudo, os resultados obtidos mostraram que o indicador pôde ser previsto com erro médio de $2\%$ e utilizando apenas uma camada intermediária na rede, foi suficiente para se obter uma boa predição.
+\par No estudo realizado por ZANETTI e ALMEIDA\cite{16} uma rede neural utilizando o algoritmo de Backpropagation para seu treinamento foi proposta para acompanhar e prever  movimento das ações da TELEBRAS. Foram utilizados dados referentes a 3 anos de cotações diárias para o aprendizado  e para realizar o treinamento a rede calculava o erro quadrático a cada três ciclos de treinamento. Os resultados do estudo provaram que a configuração da rede, com 3 a 5 neurônios em sua camada oculta e taxa de aprendizado entre 0 e 0.2 não foram suficientes para  prever o movimento do ativo. Atribui-se o resultado negativo ao alto grau de ruídos causados por agentes externos.
+\par Em "Aplicação de redes neurais artificiais no processo de precificação de ações" por MELLO~\cite{14}, é proposto um sistema de previsão de carteira de ações num horizonte de um mês utilizando-se uma rede neural com dezesseis entradas e dezesseis neurônios em sua camada oculta, fixos.  Nesse projeto também foi utilizado o algoritmo de treinamento Backpropagation e os valores de treinamento foram obtidos por um sistema terceirizado que armazena dados históricos de cotações dos ativos.
+Analisando os gráficos de resultados obtidos e a conclusão do experimento é possível ver que a rede retorna resultados satisfatórios em uma classe de erro considerável. Como imaginado, a precisão não se mantém alta por muitas iterações, porém o trabalho reforça a capacidade de predição do mercado de valores utilizando técnicas de inteligência artificial.
+\par Por fim fica claro que estudos envolvendo redes neurais artificiais para prever movimentos financeiros devem envolver uma boa parcela do tempo previsto no desenvolvimento para a obtenção e tratamento de parâmetros que servirão de entrada. Dessa forma a rede tem um treinamento mais especializado e pode gerar melhores resultados.
+
+\section{Modelagem e Aplicações}
+\par Inicialmente, com o propósito de garantir que o desenvolvimento fosse feito seguindo uma fundamentação teórica correta, foi adotado o modelo de rede neural artificial utilizado nas demonstrações do livro Sistemas Inteligentes~\cite{17}, com apenas um neurônio em sua camada de entrada, três na camada intermediária e apenas um neurônio na camada de saída, Figura~\ref{fig:redesolange}. A escolha do modelo também seguiu a recomendação descrita por FAUSETT~\cite{15}, que afirma que duas ou mais camadas ocultas podem trazer benefícios aos resultados de uma rede neural em algumas aplicações, porém utilizar-se de apenas uma camada intermediária já é suficiente. Dessa forma também se dificulta o problema de memorização de resultados pela rede.
+\par A rede inicialmente foi treinada e testada com a função senoidal aplicada em entradas de zero a dez incrementadas em 0.1 e após apresentar resultados compatíveis com os valores reais já conhecidos da função senoidal pode-se então dar continuidade ao desenvolvimento e inicio das alterações com a finalidade de conquistar melhoria de resultados. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8.4cm]{img/redeSolange.png}
+\caption{Esquema proposto de rede neural em Sistemas Inteligentes \cite{17}}
+\label{fig:redesolange}
+\end{figure}
+\par A obtenção das informações referentes ao valor de cotação dos ativos é proveniente de fontes que até o presente momento se mostram as mais utilizadas e confiáveis da Internet. A Bovespa, em seu site, disponibiliza alguns serviços de consulta que retornam valores e informações sobre a última cotação do ativo pesquisado. Um desses serviços é o "After Market"\ para cotações rápidas em dispositivos móveis, Figura~\ref{fig:servbov1}. Esse serviço possui um ambiente gráfico para deixar a leitura mais amigável e sua utilização é bem simples, basta utilizar um navegador de Internet com uma conexão ativa, acessar o link do serviço de consulta a ativos fornecido pela Bovespa para dispositivos móveis~\cite{25} e substituir o trecho "CODIGO" pelo código do ativo que se deseja consultar, também pode se escolher a linguagem de exibição entre português, inglês ou espanhol com os números $0$, $1$ e $2$, respectivamente.  
+\par No sistema desenvolvido foram utilizadas ainda outras duas fontes de obtenção desses valores. Para ter acesso aos dados históricos dos ativos com a finalidade de fazer o treinamento da rede e simular o funcionamento do programa em um intervalo de tempo grande foi utilizado um modulo do site da Yahoo, chamado Yahoo Finances~\cite{20}, que possibilita ao usuário exportar os dados históricos, como data da cotação, valor de abertura, mínima, máxima, fechamento, variação e volume de negociações de consulta de uma ação para um arquivo csv ou $XML$. Assim o sistema pôde ler o arquivo e gravar seus dados em uma base de dados para ser usada posteriormente pela rede neural.
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=8.4cm]{img/bovespa_consulta.png}
+\caption{Serviço web de consulta de ativos da Bovespa para dispositivos móveis~\cite{25}}
+\label{fig:servbov1}
+\end{figure}
+
+\par Mas uma forma de se obter os dados referentes à cotações dos ativos da bolsa de valores é outro serviço web fornecido pelo site da Bovespa, que provê uma leitura em tempo real e que retorna o resultado em um arquivo $XML$~\cite{26}. Na Figura~\ref{fig:servbov2} é exemplificado um retorno de uma consulta feita para o ativo $PETR4$ referente ao ativo da Petrobras PN.
+\par O funcionamento do serviço é simples e, após ser enviado um formulário de requisição com o código da ação desejada, retorna em seu resultado  dados como código da ação, descrição, índice Bovespa, atraso entre a hora da leitura e a ultima oscilação , data e hora da última cotação bem como a oscilação que a ação sofreu desde o seu penúltimo movimento, ultimo valor negociado e a quantidade de negociações relacionadas à ação. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8.4cm]{img/bovespa_consultaxml.png}
+\caption{Serviço web da Bovespa para consulta de valores via arquivo $XML$ ~\cite{26}}
+\label{fig:servbov2}
+\end{figure}
+
+\par Com essa ferramenta é possível agendar a execução de um $script$ de execução Crontab~\cite{21} em ambiente Linux para o envio de um formulário de consulta com o código da ação em um intervalo de tempo pré-definido, todo dia ou várias vezes no mesmo dia, desta forma  é possível obter os valores dos ativos em tempo real para serem utilizados no treinamento da rede e na predição do próximo valor.
+\par A utilização do arquivo crontab no ambiente Linux segue uma configuração bem simples e que tem um grande número de possibilidades que podem ser combinadas para o agendamento das execuções. O padrão de estrutura do crontab deve ser na seguinte ordem: minuto, hora, dia do mês, mês, dia da semana e comando a ser executado. Por exemplo, o comando
+$$   30 \; \;18 \;\; 15 	\;\;* \;\; * \;\; tar \; zcvf \;\;/bkp.tar.gz \;\;/home, $$    onde $*$ representa qualquer valor, irá executar  todo dia 15 de todo mês às 18:30 o comando "tar zcvf /bkp.tar.gz /home". 
+\par É possível alterar os valores para melhor atender a necessidade do programa. No exemplo $$  */15\; \;* \;\; * \;\;* \;\; 1-5 \;\; tar \; zcvf \;\;/bkp.tar.gz \;\;/home $$ o script é agendado para ser executado a cada 15 minutos de segunda a sexta feira de todos os meses independente de que dia do mês é.
+\par Para evitar a inutilização do sistema quando não se tem uma conexão ativa com a Internet, todos os dados obtidos nas leituras são armazenados em uma base de dados gerenciada pelo sistema gerenciador de banco de dados Mysql. Junto a esses dados são armazenadas também as configurações da rede que foram definidas pelo usuário, como taxa máxima de erro permitido, taxa de aprendizagem da rede, número de neurônios que a rede tem em sua camada oculta e qual função de ativação deseja-se usar. Com esse artificio utilizado, a única funcionalidade impedida de ser executada pela rede em um ambiente sem Internet é a leitura instantânea da cotação analisada. Porém como todos os dados obtidos anteriormente estão armazenados a rede pode prever normalmente e apresentar gráficos da previsão.
+\par A aquisição de dados referente a cotações de valores dos ativos é uma tarefa fácil e como demonstrado, apoiada por várias ferramentas. Sua única restrição de funcionamento é, trivialmente subentendida, a dependência de conexão com a Internet.
+\par O sistema foi projetado e desenvolvido em ambiente web para que dessa forma proporcione uma utilização funcional apresentando uma aparência mais agradável e totalmente personalizável ao utilizador. A linguagem escolhida para o desenvolvimento foi o $Php$ por ser uma linguagem capacitada para os cálculos rápidos requeridos pelo sistema e também dispor de um excelente manual de ajuda online para utilização de suas funções nativas, também é útil pela liberdade que a linguagem proporciona ao programador para manipular tipos de dados e tamanhos de strings e além disso, por ser uma linguagem fortemente utilizada no desenvolvimento de sistemas web, talvez a mais utilizada nesse ambiente nos tempos atuais.
+\par Para representar os resultados obtidos pela rede neural na predição foi utilizada a biblioteca gráfica pertencente ao Grupo Google chamada Flotr~\cite{19}. Com essa ferramenta feita na linguagem javascript é possível modelar os resultados processados e confrontá-los com os valores reais das cotações e assim, analisar se a predição consegue seguir visualmente a movimentação real do ativo. 
+
+\section{Alternativas Propostas}
+\par Como já dito anteriormente, a rede neural proposta pelo estudo seguiu a configuração proposta por REZENDE~\cite{17}, porém, em seguida foram feitas outras tentativas de melhoria utilizando configurações distintas para que fosse possível analisar os resultados e definir qual a melhor configuração para a rede proposta.
+\par A ideia, desde o início do desenvolvimento do sistema, foi tornar o sistema customizável e possibilitar ao usuário fazer alterações diretamente na estrutura da rede neural a fim de observar as variações e limites da predição. Algumas dessas alternativas propostas foram: alteração do número de neurônios da camada oculta da rede neural, alteração da taxa de aprendizagem $n$, opção de escolha do tipo de função de transferência utilizada e erro máximo permitido pela  rede. 
+\par Quanto a função de transferência, após analise dos estudos relacionados ao tema, foi definido que utilizar a função tangente hiperbólica ou sigmoide seria essencial para o bom funcionamento da rede, visto que outras funções de transferência acarretariam em oscilações muito agressivas para o contexto analisado, não proporcionando a suavidade que as duas funções escolhidas tem. Portanto tornou-se possível ao usuário do sistema a escolha entre a utilização da função tangente hiperbólica e sigmoide.
+\par Outra possibilidade ao utilizador do sistema é a definição da taxa de erro máxima aceitada pela rede. Como seu funcionamento baseia-se em um possível treinamento toda vez que um valor de leitura é inserido na rede e não atinge uma classe considerada de resultados positivos, considera-se que essa classe é o valor máximo de erro que a rede pode possuir e assim, toda vez que a rede não atingir o valor pré-definido pelo usuário é feito um treinamento com o valor da entrada e seus pesos são reajustados.
+\par Algumas outras alterações foram feitas fora da gama de possibilidades de escolha do usuário. A adição de mais uma entrada contendo o valor máximo obtido pela cotação da ação no dia da leitura foi executada mantendo a quantidade de três neurônios na camada intermediária da rede e também alterando esse valor. Também foi proposto um teste de treinamento utilizando uma rede configurada com duas camadas ocultas.\par 
+As alterações propostas no desenvolvimento do sistema não foram muito além dos conceitos básicos estabelecidos pelas definições da inteligência artificial ou de estudos já relacionados sobre o tema pelo simples fato de preservar a teoria e assim, fazer com que a rede neural não perdesse as suas características originais e, consequentemente, manipulasse de forma irregular os dados inseridos para seu treinamento. 
+
+\section{Resultados Obtidos}
+\par No decorrer do desenvolvimento e execução dos vários testes propostos, feitos com configurações distintas para a rede neural, foi observada e escolhida como melhor configuração para uma rede com apenas um neurônio em sua camada de entrada, que apresente uma taxa de aprendizado de valor $0.1$, pois devido ao fato de se trabalhar com valores que alteram com muita frequência, a amplitude de variação não pode ser muito alta pois senão pode proporcionar à predição uma oscilação muito maior que a necessária para se obter um bom resultado. Define-se também, que a rede não possua uma taxa de aprendizado superior a $0.25$, para que assim não sofra com oscilações mais intensas do que as reais.
+\par Para a rede proposta e o contexto analisado, também foi observado que a rede deve possuir uma quantidade máxima de trinta neurônios em sua camada oculta mostrando ainda que, os melhores resultados foram obtidos seguindo uma configuração de dez neurônios nessa camada para a rede de apenas uma entrada. Porém outra combinação como valor para a taxa máxima de erro permitido igual a $0.04$ e uma quantidade de $30$ neurônios em sua camada oculta com entrada dupla também retornaram bons resultados.
+ Essas afirmações se tornaram mais claras ao efetuar testes com uma rede que apresentava, em sua configuração, uma taxa de aprendizado igual a 1.0 e mais de trinta neurônios em sua camada oculta. Independente da quantidade de neurônios na camada de entrada, a rede não conseguiu exibir resultados consideráveis, quase na totalidade dos casos foi comum visualizar erros por obter números e variações muito grandes. Atribui-se a esses resultados negativos, assim como dito anteriormente neste artigo, o fato da rede parar de aprender quando se utiliza uma quantidade muito grande de neurônios em sua camada oculta e começa a memorizar os resultados e assim não suporta manipular os altos valores por incrementar os resultados obtidos anteriormente.
+\par Quanto à função de transferência, ficou evidente a melhor precisão obtida pela tangente hiperbólica independente da utilização de uma ou duas entradas na rede neural em quase todas as predições feitas, como pode ser visto nas predições feitas para as ações da Petrobras de código PETR4 e Natura de código NATU3. Quando efetuados testes utilizando a função sigmoide, Figura~\ref{fig:predicaoSig}, houve uma pequena variação entre as predições feitas com 1 e 2 entradas, diferente da predição feita com a tangente hiperbólica, Figura~\ref{fig:predicaoTang}, no qual obteve resultados compatíveis para as predições feitas com 1 e 2 entradas.
+\par Porém é importante ressaltar o fato de que apesar da variação obtida nas predições, com uma e duas entradas utilizando a função de transferência sigmoide, o sentido da oscilação foi conservado, indicando em quase todos os testes se a oscilação da predição era positiva ou negativa para a próxima cotação do ativo.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=8.4cm]{img/progSigmoide.png}
+\caption{ Predição com 1 e 2 entradas na rede neural utilizando a função sigmoide.}
+\label{fig:predicaoSig}
+\end{figure}
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=8.4cm]{img/progtangHip.png}
+\caption{Predição com 1 e 2 entradas na rede neural utilizando a função tangente hiperbólica.}
+\label{fig:predicaoTang}
+\end{figure}
+
+
+\par Nas imagens identificadas pela Figura~\ref{fig:predicao1Entrada} e Figura~\ref{fig:predicao2Entrada} é possível analisar os gráficos gerados por redes que possuem um e dois neurônios em sua camada de entrada, respectivamente. Elas mostram a eficiência na predição pelos dois tipos de configuração de rede e que a diferença realmente é muito pequena, porem válida, já que a rede que possui apenas um neurônio em sua camada de entrada apresenta uma aproximação maior em relação ao gráfico do real valor assumido pela ação. 
+\par Na predição feita com dois neurônios na camada de entrada é possível ver em alguns pontos que a predição perde o sentido da oscilação e demanda de um maior número de iterações para reestabilizar.
+ Essa diferença do valor obtido pela predição da rede e o real valor da cotação pode ser observada olhando nos gráficos apresentados e analisando as linhas pelas cores verdes e azuis respectivamente.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8.4cm]{img/umanova2.png}
+\caption{Gráfico de predição feita com uma única entrada.}
+\label{fig:predicao1Entrada}
+\end{figure}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8.4cm]{img/duasnova.png}
+\caption{ Gráfico de predição feita com duas entradas.}
+\label{fig:predicao2Entrada}
+\end{figure}
+
+\par Com a finalidade de ver a diferença existente entre as duas configurações de rede analisadas, com uma e duas entradas, foi proposto outro teste pelo qual ambas redes foram configuradas com trinta neurônios em sua camada oculta, utilizaram-se da função de ativação tangente hiperbólica com uma taxa e aprendizado de $0.01$ e um erro máximo permitido de $0.01$. 
+\par Relembrando que a rede executa um treinamento com o valor obtido toda vez que a taxa máxima de erro permitida não for superada, assim com uma taxa baixa poucos dos resultados obtidos pela rede são exibidos diretamente sem que componham mais um treinamento da rede. Desta forma foram propostas $5282$ entradas referentes ao ativo PETR4 PN para as duas configurações de rede.
+\par Como pode ser visto na Tabela~\ref{tab:conTreinameto}, a rede configurada com apenas 1 neurônio na camada de entrada apresentou em 19 dos 20 testes efetuados um resultado inferior ao obtido pela rede com 2 entradas. Essa que por três vezes realizou os $5282$ treinamentos, ou seja, em $100\%$ das iterações não se obteve uma taxa de erro considerável nos resultados da predição.
+
+\begin{table}[Htpb]
+ \centering
+	\begin{tabular}{|c|c|} \hline
+		RNA com 1 entrada & RNA com 2 entradas  \\ \hline
+		5168 & 5183\\
+		5164&5189\\
+		5168&\textbf{5282}\\
+		5163&5175\\
+		5143&\textbf{5282}\\
+		5167&5194\\
+		5170&5270\\
+		5171&\textbf{5282}\\
+		5145&5157\\
+		5139&5183\\
+		5174&5271\\
+		5135&5274\\
+		5176&5170\\
+		5169&5277\\
+		5161&5164\\
+		5171&5181\\
+		5164&5177\\
+		5164&5167\\
+		5141&5169\\
+		5159&5160\\
+		5133&5189\\		
+		\hline
+\end{tabular}
+\caption{Contagem de treinamentos feitos  com erro máximo permitido igual a 0.01}
+\label{tab:conTreinameto}
+\end{table}
+
+\par Por fim, seguindo o estudo de ZANETTI e ALMEIDA~\cite{16} foram calculados os valores dos erros quadráticos para as duas redes apresentadas, Tabela~\ref{tab:erroQuad}. Ambas utilizaram as mesmas configurações do teste de cálculo de número de treinamentos realizados. Também foi utilizado o mesmo conjunto de entradas para não haver suspeitas de divergências sobre os testes realizados.
+\par Analisando os resultados obtidos para os valores do cálculo do erro quadrático  das redes, nota-se novamente que a rede com apenas um neurônio em sua camada de entrada apresenta melhores resultados.
+ Atribui-se os melhores resultados a rede com 1 entrada ao analisarmos os valores  e notarmos que a rede com 2 entradas necessita de um número maior de iterações para conseguir chegar a um erro menor que $1$, $13$ iterações contra 10 da rede com uma entrada. No início já é possível ver que com um neurônio apenas na camada de entrada, a rede tem uma taxa de correção bem mais eficaz que a rede com duas entradas e dos 50 resultados analisados, 28 vezes a rede com um único neurônio na camada de entrada apresentou valores menores que a outra configuração de rede.
+
+
+\begin{table}[t!]
+ \centering
+	\begin{tabular}{|p{0.5cm}|c c|} \hline
+\#  & RNA com 1 entrada & RNA com 2 entradas  \\ \hline
+1	&	333.4214&	335.9543\\
+2	&	151.6011&	140.9369\\
+3	&	68.8&	74.6092\\
+4	&	34.2022&	52.5302\\
+5	&	19.0363&	31.4845\\
+6	&	10.2125&	16.9298\\
+7	&	5.8256&	17.6376\\
+8	&	3.1503&	15.7748\\
+9	&	1.8754&	22.8603\\
+10	&	0.9183&	11.5969\\
+11	&	0.21&	4.8019\\
+12	&	0.0027&	1.6409\\
+13	&	0.0117&	0.9481\\
+14	&	0.0442&	0.6698\\
+15	&	0.0011&	0.2168\\
+16	&	0.0166&	0.1869\\
+17	&	0.0023&	0.0694\\
+18	&	0.0827&	0.1906\\
+19	&	0.0044&	0.0308\\
+20	&	0.0026&	0.0007\\
+21	&	0.0414&	0.0645\\
+22	&	0.034&	0.0486\\
+23	&	0.0117&	0.0182\\
+24	&	0.0536&	0.0617\\
+25	&	0.0005&	0.00\\
+26	&	0.0215&	0.0239\\
+27	&	0.0066&	0.0052\\
+28	&	0.1012&	0.1007\\
+29	&	0.0665&	0.0666\\
+30	&	0.047&	0.0468\\
+31	&	0.0172&	0.0159\\
+32	&	0.5376&	0.5192\\
+33	&	0.4946&	0.4839\\
+34	&	0.7037&	0.6909\\
+35	&	0.5601&	0.5555\\
+36	&	0.6604&	0.6579\\
+37	&	0.4643&	0.4668\\
+38	&	0.0909&	0.0954\\
+39	&	0.0259&	0.0287\\
+40	&	0.0085&	0.0067\\
+41	&	0.034&	0.0306\\
+42	&	0.0488&	0.0454\\
+43	&	0.0311&	0.0295\\
+44	&	0.0006&	0.0006\\
+45	&	0.0029&	0.0028\\
+46	&	0.034&	0.0339\\
+47	&	0.0022&	0.0019\\
+48	&	0.0347&	0.0339\\
+49	&	0.0046&	0.0046\\
+50	&	0.0588&	0.0564\\
+	\hline
+\end{tabular}
+\caption{Cálculo do erro quadrático para as duas configurações de rede}
+\label{tab:erroQuad}
+\end{table}			
+\par Ao executar o sistema proposto, percebe-se que a obtenção de dados é feita em um tempo totalmente coerente com o esperado, independente de momento de consulta ou velocidade de conexão. A única restrição que incide sobre a tarefa de obtenção de dados sobre ações é, de fato, a necessidade de existir uma conexão com a Internet, já o treinamento e predição do valor da cotação podem ser feitos apenas utilizando os valores inseridos no banco de dados. 
+\par Quanto à predição feita pela RNA, se existem agentes externos que influenciam a ação administrada, a rede nem sempre consegue bons resultados, entretanto, quando a variação sofrida por agentes externos é pequena a rede consegue se comportar bem. 
+\section{Conclusão}
+\par É claro para todos que a tecnologia ainda não avançou ao ponto de capacitar uma máquina a pensar exatamente como um ser humano pensaria, além disso, há algumas situações que são complexas até mesmo para um cérebro humano processar. 
+\par Como esperado, a rede se comportou bem nas situações em que foi proposta e que não houve interferência direta de agentes externos que pudessem inferir na oscilação das cotações.
+\par Apesar de atingir o objetivo traçado, o estudo mostrou que a combinação de configurações da estrutura da rede pode ser a peça chave para um bom desempenho da predição. Testes realizados com taxas de aprendizado muito altas ou muitos neurônios na camada oculta muitas vezes implicaram em erros de predições ou até mesmo na falha de execução do algoritmo.
+\par  Naturalmente, a predição feita por uma rede neural artificial é imprecisa em determinadas situações podendo levar uma pessoa que confie totalmente no algoritmo a algum tipo de erro. Mas fica claro com a pesquisa que, na maioria das situações, uma RNA bem treinada pode ser uma ferramenta de extrema ajuda na decisão de uma nova manobra efetuada por quem quer investir em ações. Torna-se mais uma forma de consulta antes de uma manobra econômica.
+\par Algumas situações foram propostas para análise e conclui-se que, para se obter um resultado mais preciso e real, cada ação analisada pode ter melhores resultados se sua previsão for calculada por uma rede neural com configuração própria e individual, como de taxa de aprendizado e número de neurônios em suas camadas oculta e de entrada, bem como erro máximo permitido. Desta forma a rede fica apta a trabalhar de acordo com a intensidade da variação que a ação analisada costuma sofrer e então pode ser melhor treinada.
+\par Ao analisar os gráficos e as tabelas de erros apresentadas, nota-se que a rede aproxima-se ao objetivo proposto seguindo bem próxima à cotação real, gerando um gráfico visualmente bem parecido com o verdadeiro movimento executado pela cotação do ativo. Essa questão ressalta a capacidade motora que a rede tem de manipular entradas e prever o resultado esperado e a qualidade de sua previsão, mesmo obtendo uma certa diferença já esperada inicialmente do valor real.
+\par A dificuldade da previsão feita por uma máquina está exatamente na mesma que nós, seres humanos, temos. Prever acontecimentos que não seguem padrões é uma tarefa  complexa, porém descartando-se ação de agentes externos, a rede comporta-se bem e serve como uma base para futuras pesquisas que pretendam prosseguir a ideia de previsão de mercado de ações.
+
+\subsection{Considerações Finais e Contribuições Futuras}
+\par Foi possível então observar que o sistema desenvolvido correspondeu às expectativas desejadas com resultados esperados e que também encontrou dificuldades nos pontos em que era previsto uma certa instabilidade de funcionamento. Desta forma podemos afirmar que a rede se comportou dentro das expectativas, porém não é precisa o suficiente para que um possível investidor decida uma nova jogada de mercado apenas baseando-se em resultados obtidos pela predição do sistema.
+ Essa possível incerteza nos resultados obtidos é resultante da influência direta e indireta de agentes externos, que podem tornar todo o treinamento efetuado pela rede, com dados históricos sobre a ação, incapaz de gerar um resultado adequado.
+ Esse raciocínio não exclui a possibilidade futura de haver um aprendizado mais especializado sobre uma RNA que a faça prever mudanças bruscas antes que ocorram, pois assim como aplicado nesse estudo, várias alterações podem ser feitas na estrutura da rede neural e assim, proporcionar resultados distintos.
+ Assim, espera-se que este estudo sirva como base para novas pesquisas e que possa contribuir para trabalhos futuros que podem alterar configurações ou utilizar abordagens diferentes das vistas nesse estudo e assim, melhorar os resultados obtidos aqui.
+\par Dos resultados obtidos e conclusão desse estudo podemos crer que é possível prever com mais qualidade baseando-se  na melhoria  das técnicas utilizadas. Algumas das alternativas que podem ser propostas para isso são uma melhor escolha e tratamento da segunda entrada da rede, visto que a escolhida por esse estudo não foi capaz de superar o resultado obtido por uma predição com apenas uma entrada. Combinar predições feitas com configurações distintas de rede pode dar mais estabilidade ao resultado obtido e o tornar mais confiável.
+\par Outra opção de melhoria que pode contribuir muito é a possibilidade de manipular a rede neural para que cada ativo listado tenha suas configurações pré-definidas e armazenadas em uma base de dados sobre o ativo. Dessa forma a rede pode trabalhar com as intensidades de variações e velocidade de aprendizagem que a ação costuma ter realmente.
+\par  Algumas das possibilidades não abordadas nesse estudo podem ser, por exemplo, provar a eficiência ao se incluir alguns parâmetros externos que contribuam para a otimização dos resultados, ou manipular funções de ativação que deixem mais sensível a amplitude da curva gerada pela variação dos valores e, consequentemente, tornar mais precisa a variação existente entre as cotações.
+\par  Outra proposta de estudo é a possibilidade de escolha no tempo da captação de dados para o treinamento da rede. Como visto, as ações apresentam várias cotações durante o pregão do dia até atingir o termino de atividades da bolsa e assim definir o valor de fechamento da ação e prever o valor de fechamento analisando as cotações parciais de um ativo durante um dia de atividade com intervalos de tempo personalizados para cada ação pode ser uma boa alternativa para a melhoria na precisão da rede.
+\par Visto que uma das maiores dificuldades no desenvolvimento de uma RNA para predições de ativos da bolsa de valores são os agentes externos, que podem afetar as cotações a qualquer momento. Tomando conhecimento disso e já possuindo uma rede que trabalhe bem ao desconsiderarmos os agentes externos, uma possibilidade de melhoria pode ser a associação de notícias sobre economia à ações que estão listadas no sistema. Dessa forma pode ser possível analisar o efeito que um acontecimento mundial incide sobre a cotação do ativo relacionado à notícia.
+\par Como pode ser visto, são várias as alternativas de abordagem que podemos tomar para alterar o resultado obtido da predição. Cada abordagem aplicada pode ser alterada, assim podemos afirmar que todos os resultados podem ser melhorados e consequentemente chegar mais próximo de uma real previsão.
+
+\begin{thebibliography}{99}  
+\bibitem{8} ALVES, C. A. M.  \textbf{Uma Ferramenta de Extração de Regras de Redes Neurais}. 2001. Dissertação (Mestrado em Ciências em Engenharia Civil) - COPPE, UFRJ, Rio de Janeiro.
+\bibitem{1} ARMANO, G., MARCHESI, M., MURRU, A.  \textbf{A hybrid genetic-neural architecture for stock indexes forecasting}. Information Sciences. v 170, p. 3-33, 2005. 
+\bibitem{18} ARTERO, A. O.  \textbf{Inteligência Artificial} - Teórica e Prática. Livraria da Física, 2009;
+\bibitem{19}  \textbf{Biblioteca gráfica flotr2}. Disponível em: \url{<http://www.humblesoftware.com/flotr2/>} .Acesso em: 11 de nov. 2012.
+\bibitem{12} BOSAIPO, C. Rödel.  \textbf{Aplicação das Redes Neurais na previsão do comportamento de mercados financeiros}. Disponível em \url{<http://www.ccuec.unicamp.br/revista/infotec/artigos/claudia.html>}. Último Acesso em: 10 de Nov. 2012.
+\bibitem{25} BOVESPA.COM.BR.  \textbf{Serviço de consulta a cotação de ativos da bolsa de valores para dispositivos móveis}. Disponível em: \url{<http://www.bmfbovespa.com.br/Pregao-online/ExecutaAcaoCotRapXSL.asp?txtCodigo=CODIGO\& intIdiomaXsl=0>}. Acesso em: 11 de nov. 2012.
+\bibitem{26} BOVESPA.COM.BR.  \textbf{Serviço de consulta a cotação de ativos da bolsa de valores via arquivo XML}. Disponível em: \url{<http://www.bmfbovespa.com.br/ cotacoes2000/formCotacoesMobile.asp>}. Aceso em: 11 de nov. 2012.
+\bibitem{29} BRUM, C. A. H. \textbf{Aprenda a investir em ações e a operar na bolsa via Internet}. 3.ed. Editora Ciência Moderna. Rio de Janeiro. 2006.
+\bibitem{5} DANDOLINI, G. A.  \textbf{Um procedimento para avaliação da saúde financeira de pequenas empresas}: estudo de um caso usando redes neuronais artificiais. 1997. Dissertação (Mestrado em Engenharia de Produção) - Universidade Federal de Santa Catarina, Florianópolis.
+\bibitem{13} FARIA, E. L., ALBUQUERQUE, M. P., ALFONSO, J. L., CAVALCANTE, J. T. P.  \textbf{Previsão do Mercado de Ações Brasileiro utilizando Redes Neurais Artificiais}. Centro Brasileiro de Pesquisas Físicas - CBPF, Pontifícia Universidade Católica - PUC-RIO. Rio de Janeiro, 2008.
+\bibitem{15} FAUSETT, L.  \textbf{Fundamentals of Neural Networks} - Architecture, Algorithms, and Applications. Prentice Hall International, Inc., 1994.
+\bibitem{30} FERNEDA, E. \textbf{Redes neurais e sua aplicação em sistemas de recuperação de informação}. Ciência da Informação, Brasília, v. 35, n. 1, p. 25-30, jan./abr. 2006.
+\bibitem{6} HAYKIN, S.  \textbf{Redes Neurais}, Princípios e Prática. 2.ed. Porto Alegre: Bookman, 2001.
+\bibitem{7} KOVACS, K. L.  \textbf{Redes Neurais Artificiais} - Fundamentos e Aplicações. Editora Acadêmica. São Paulo, 1996.
+\bibitem{23}LEILTONS, S. L., SOUZA, J. C., RAW, M., RIBEIRO, C. H. C., KIENITZ, K. H.  \textbf{Aprendizagem Autônoma para Gerenciamento de uma bolsa de Valores Simplificada}. Departamento de Engenharia Elétrica e Computação - Instituto Tecnológico de Aeronáutica - ITA, São José dos Campos.
+\bibitem{28} MAZUCHELI, J., ACHCAR, J. \textbf{Algumas considerações em regressão não linear}. Acta Scientiarum. v. 24, n. 6, p. 1761-1770, 2002. Disponível em: \url{<http://www.periodicos.uem.br/ojs/index.php/ActaSciTechnol/article/view/2551/1574>}. Acesso em 11 de nov. 2012.
+\bibitem{27} MCCULLOCH, W.S., PITTS, W.   \textbf{A logical calculus of the ideas immanent in nervous activity}. Bulletin of Mathematical Biology, Vol. 5, No. 4. (21 December 1943), p. 115-133.
+\bibitem{4} MCDERMOTT, R. J., MADLEM, P. W.  \textbf{Technical Analysis of Stock Trends}. 7.ed. Amacom Books, 1997.
+\bibitem{14} MELLO, M. T.  \textbf{Aplicação de redes neurais artificiais no processo de precificação de ações}.  Monografia (Graduação em Ciência da Computação) -Instituto de Física e Matemátiac, Universidade Federal de Pelotas, 06 de out. 2004.
+\bibitem{3} MINISTERIO DA FAZENDA.  \textbf{Portal do investidor}. Disponível em:  \url{<http://www.portaldoinvestidor.gov.br>}. Acesso em: 20 de jul. 2012.
+\bibitem{11} MULLER, D. N. \textbf{Máquina de Boltzmann}. Dissertação (Pós Graduação em Ciência da Computação) - UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL, Porto Alegre,1993.
+\bibitem{17} REZENDE, S. O.  \textbf{Sistemas Inteligentes}, Fundamentos e Aplicações. Editora Manole. Barueri-SP, 2003.
+\bibitem{9} ROQUE, R. C.  \textbf{Estudo sobre a empregabilidade da previsão do índice BOVESPA usando redes neurais artificiais}. Departamento de Eletrônica e de Computação, Escola Politécnica, Universidade Federal do Rio de Janeiro. Fevereiro, 2009.
+\bibitem{24} RUSSEL, S. J., NORVING, P.  \textbf{Inteligência Artificial}. 2.ed. Editora Campus, 2004, 1056 p.
+\bibitem{2}  SCHAEDLER, C. A. et al.  \textbf{Redes Neurais}. São Leopoldo: UNISINOS, 2003.
+\bibitem{10} TAFNER, M. A., XEREZ, M., FILHO, I. R.  \textbf{Redes Neurais Artificiais}: Introdução e Princípios de Neurocomputação. 1.ed., Blumenau : Eko, 1996. 199 p. il.
+\bibitem{22} VANDERSTELT, N.  \textbf{Linear Regression for Trend Analysis in Trading}. Disponível em: \url{<http://forexindicators-metrader.blogspot.com.br/2011/12/linear-regression-for-pattern-analysis.html>}. Acesso em: 11 de nov. 2012.
+\bibitem{21} VIXIE, P.  \textbf{Crontab}, tables for driving cron. Disponível em: \url{<http://www.manpagez.com/man/5/crontab/>}. Acesso em 11 de nov. 2012.
+\bibitem{20} YAHOO.COM.  \textbf{Yahoo finances}. Disponível em:  \url{<http://br.financas.yahoo.com/>}. Acesso em: 11 de nov. 2012.
+\bibitem{16} ZANETTI  L. A., ALMEIDA. F. C.   \textbf{Exploração do uso de redes neurais na previsão do comportamento de ativos financeiros.} Faculdade de Economia, Administração e Contabilidade - USP 1998.
+\end{thebibliography}
+\end{document}
